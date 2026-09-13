@@ -7,7 +7,11 @@ quit_or_continue = ""
 while (quit==False):
     stockqty = input("Please enter stock quantity:")
     if(stockqty.isdigit()):
-        inventory = inventory+int(stockqty)
+        if(int(stockqty)<0):
+                print("Stock quantity cannot be negative.")
+                continue
+        else:  
+            inventory = inventory+int(stockqty)
     else:
         print("Stock quantity must be a number.")
         continue
