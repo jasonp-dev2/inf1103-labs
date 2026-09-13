@@ -15,6 +15,9 @@ while (quit==False):
     else:
         print("Stock quantity must be a number.")
         continue
+    if inventory>500:
+        print("Inventory limit exceeded.")
+        break
     quit_or_continue = input("To quit, enter 'quit'. Otherwise, to continue adding entries, press Enter:")
     if quit_or_continue == "quit":
         quit = True
