@@ -1,0 +1,29 @@
+commit 971eedcb935f97170c6880b7cf1941610cc21a59
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 12:05:38 2026 +0800
+
+    reporting
+
+commit 422163f19a40111ca77ca2a6caae32f192f851ce
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 12:03:08 2026 +0800
+
+    trigger overstock alert
+
+commit 1d91e2ec15a76393ccd2a782a3dc26d77ae4ef99
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 11:55:34 2026 +0800
+
+    enforce business rules
+
+commit a3ec9cf6b691a06c9cb43b1f2e1053c2cb1474b9
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 11:53:50 2026 +0800
+
+    Handle invalid input
+
+commit 09e7c5600b35db1b013053cb7a30625e7a230718
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Fri Sep 11 10:12:01 2026 +0800
+
+    Initial commit
