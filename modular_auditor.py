@@ -1,7 +1,8 @@
-# ModularvSmart Inventory Auditor
+# Modular Smart Inventory Auditor
+
+#
 
 def get_valid_input():
-    failedentry = 0
     user_input = input("Please enter stock quantity (To quit, enter 'quit'): ")
     if user_input.lower() == "quit":
         quit = True
@@ -35,21 +36,15 @@ def main():
     while (quit==False):
         user_input = get_valid_input()
         if user_input is not None and user_input is not True:
-            print("Incoming delivery: ", user_input)
-            print("Inventory before processing delivery: ", inventory)
-            inventory = process_delivery(inventory, user_input)
-            print("Inventory after processing delivery: ", inventory)
-            inventory = calculate_tax(inventory)
+            inventory = process_delivery(inventory, calculate_tax(user_input))
             if inventory>500:
-                print("Inventory limit exceeded.")
                 generate_Report(inventory, failedentry)
                 break
-            print("Inventory after tax calculation: ", inventory)
         elif user_input is True:
             generate_Report(inventory, failedentry)
+            break
         else:
             failedentry += 1
-            print("Failed entries so far: ", failedentry)
             print("No valid input received. Please try again.")
 
 if __name__ == "__main__":
