@@ -25,10 +25,26 @@ def generate_Report(total_units, failed_entries):
     print("Total Deliveries Processed: ", total_units)
     print("Number of Failed/Rejected entries: ", failed_entries)
 
+def load_inventory():
+    try:
+        with open("inventory.txt", "r") as file:
+            inventory = int(file.read())
+            return inventory
+    except FileNotFoundError:
+        with open("inventory.txt", "w") as file:
+            file.write("0")
+            inventory = 0
+            return inventory
+        
+
+def save_inventory():
+    # Placeholder for inventory saving logic
+    pass
+
 def main():
     user_input = ""
     quit = False
-    inventory = 0
+    inventory = load_inventory()
     failedentry = 0
 
     while (quit==False):
