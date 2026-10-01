@@ -46,7 +46,7 @@ def load_inventory():
         return total_qty, total_failed_entries    
     
     except FileNotFoundError:
-        initial_inventory = [0, 20, 0]
+        initial_inventory = [0, 0, 0]
         with open("inventory.txt", "w") as file:
             file.write(str(initial_inventory) + "\n")
         return initial_inventory[1], initial_inventory[2]
@@ -62,8 +62,8 @@ def save_inventory(taxed_user_input, failed_entries):
     with open("inventory.txt", "a") as file:
         file.write(str(new_record) + "\n")
         print("New inventory entry added: ")
-        print("Entry ID: ", new_record[0], " | Inventory added: ", new_record[1], " | Failed Entries: ", new_record[2] + "\n")
-        print("Inventory updated successfully to inventory.txt")
+        print("Entry ID: ", new_record[0], " | Inventory added: ", new_record[1], " | Failed Entries: ", new_record[2])
+        print("\n" + "Inventory updated successfully to inventory.txt")
         
 def main():
     user_input = ""
