@@ -6,8 +6,6 @@
 import ast
 import json
 
-from persistent_auditor import save_inventory
-
 def get_valid_input():
     user_input = input("Enter option: " + "\n")
 
@@ -72,8 +70,24 @@ def add_product(inventory):
     inventory[product_id] = product_entry
     return inventory
 
-def update_stock():
-    pass
+def update_stock(inventory):
+    print("Update Stock" + "\n")
+    product_id = input("Enter Product ID: ")
+
+    try:
+        selected_product = inventory[product_id]
+        print(
+            "Product Found: " + "\n"
+            "Selected Product: ", selected_product["Name"] + "\n" 
+            "Current Stock: ", selected_product["Stock"] + "\n"
+        )
+        new_stock = int(input("Enter new stock quantity: "))
+        selected_product["Stock"] = new_stock
+        return inventory
+    except:
+        return None
+
+
 
 def search_product():
     pass
@@ -133,9 +147,13 @@ def main():
             if return_value is None:
                 continue
             else:
-                print("Product added successfully!")
+                print("\n" + "Product added successfully!")
         elif user_input == "3":
-            pass
+            return_value = update_stock(inventory)
+            if return_value:
+                print("Stock updated successfully!")
+            else:
+                print("Stock update failed. Please try again.")
         elif user_input == "4":
             pass
         elif user_input == "5":
