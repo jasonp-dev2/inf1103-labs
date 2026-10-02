@@ -6,6 +6,8 @@
 import ast
 import json
 
+from persistent_auditor import save_inventory
+
 def get_valid_input():
     user_input = input("Enter option: " + "\n")
 
@@ -50,8 +52,25 @@ def display_all_products(inventory):
         )
     print("-----------------------------------" + "\n")
 
-def add_product():
-    pass
+def add_product(inventory):    
+    print("Add Product" + "\n")
+    product_id = input("Product ID: ")
+    product_name = input("Product Name: ")
+    product_price = float(input("Product Price: "))
+    product_stock = int(input("Product Stock: "))
+    taxed_stock = calculate_tax(product_stock)
+    if product_stock>500:
+        print("Stock limit exceeded. Cannot add product with stock greater than 500.")
+        return None
+
+    product_entry = {
+        "ID": product_id,
+        "Name": product_name,
+        "Price": product_price,
+        "Stock": taxed_stock
+    }
+    inventory[product_id] = product_entry
+    return inventory
 
 def update_stock():
     pass
@@ -87,7 +106,6 @@ def save_inventory(taxed_user_input, failed_entries):
         
 def main():
     user_input = ""
-    inventory, failedentry = load_inventory()
 
     while True:
         print(
@@ -111,7 +129,11 @@ def main():
         if user_input == "1":
             display_all_products(inventory)
         elif user_input == "2":
-            pass
+            return_value = add_product(inventory)
+            if return_value is None:
+                continue
+            else:
+                print("Product added successfully!")
         elif user_input == "3":
             pass
         elif user_input == "4":
@@ -119,7 +141,7 @@ def main():
         elif user_input == "5":
             pass
         elif user_input is False:
-            generate_Report(inventory, failedentry)
+            generate_Report(inventory)
             break
         else:
             print("Invalid option. Please try again.")
