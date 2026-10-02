@@ -5,9 +5,10 @@
 
 import ast
 import json
+import pprint
 
 def get_valid_input():
-    user_input = input("Enter option: " + "\n")
+    user_input = input("Enter option: ")
 
     if user_input == "1":
         return user_input
@@ -40,13 +41,12 @@ def load_inventory():
 def display_all_products(inventory):
     print("Current Inventory: " + "\n")
     print("-----------------------------------" + "\n")
-    for products in inventory:
+    for products, info in inventory.items():
         print(
-            "ID: ", products["ID"], 
-            " | Name: ", products["Name"], 
-            " | Price: $", products["Price"], 
-            " | Stock: ", products["Stock"] 
-            + "\n"
+            f"ID: {info["ID"]}", 
+            f" | Name: {info["Name"]}", 
+            f" | Price: ${info["Price"]}", 
+            f" | Stock: {info["Stock"]}" 
         )
     print("-----------------------------------" + "\n")
 
@@ -55,6 +55,7 @@ def add_product(inventory):
     product_id = input("Product ID: ")
     product_name = input("Product Name: ")
     product_price = float(input("Product Price: "))
+    formatted_price = f"${product_price:.2f}"
     product_stock = int(input("Product Stock: "))
     taxed_stock = calculate_tax(product_stock)
     if product_stock>500:
@@ -64,10 +65,11 @@ def add_product(inventory):
     product_entry = {
         "ID": product_id,
         "Name": product_name,
-        "Price": product_price,
+        "Price": formatted_price,
         "Stock": taxed_stock
     }
     inventory[product_id] = product_entry
+    print(str(product_entry))
     return inventory
 
 def update_stock(inventory):
@@ -86,7 +88,6 @@ def update_stock(inventory):
         return inventory
     except:
         return None
-
 
 
 def search_product():
@@ -119,25 +120,24 @@ def save_inventory(taxed_user_input, failed_entries):
         print("\n" + "Inventory updated successfully to inventory.txt")
         
 def main():
-    user_input = ""
+    print(
+        "===================================" + "\n" 
+        + "INVENTORY MANAGEMENT SYSTEM " + "\n" + 
+        "===================================" + "\n" 
+    )
+    print("Inventory loaded successfully.")
+    inventory = load_inventory()
 
     while True:
         print(
-            "===================================" + "\n" 
-            + "INVENTROY MANAGEMENT SYSTEM " + "\n" 
-            + "===================================" + "\n" 
-        )
-        inventory = load_inventory()
-        print("Inventory loaded successfully.")
-        print(
-            + "---------------MENU----------------" + "\n"
+            "---------------MENU----------------" + "\n"
             + "1. Display All Products" + "\n"
             + "2. Add Product" + "\n"
             + "3. Update Stock" + "\n"
             + "4. Search Product" + "\n"
             + "5. Save Inventory" + "\n"
-            + "6. Exit" + "\n"
-            + "-----------------------------------" + "\n"
+            + "6. Exit" + "\n" +
+            "-----------------------------------" + "\n"
         )
         user_input = get_valid_input()
         if user_input == "1":
