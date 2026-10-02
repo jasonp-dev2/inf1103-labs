@@ -24,8 +24,31 @@ def get_valid_input():
     else:
         return None
 
-def display_all_products():
-    pass
+def load_inventory():
+    try:
+        with open('inventory.json', 'r') as file:
+            print("inventory.json found.")
+            inventory = json.load(file)
+        return inventory
+    except FileNotFoundError:
+        print("inventory.json not found. Creating a new inventory.json file.")
+        initial_inventory = {}
+        with open("inventory.json", "w") as file:
+            json.dump(initial_inventory, file)
+        return initial_inventory
+
+def display_all_products(inventory):
+    print("Current Inventory: " + "\n")
+    print("-----------------------------------" + "\n")
+    for products in inventory:
+        print(
+            "ID: ", products["ID"], 
+            " | Name: ", products["Name"], 
+            " | Price: $", products["Price"], 
+            " | Stock: ", products["Stock"] 
+            + "\n"
+        )
+    print("-----------------------------------" + "\n")
 
 def add_product():
     pass
@@ -47,19 +70,6 @@ def calculate_tax(amount):
 def generate_Report(total_units, failed_entries):
     print("Total Deliveries Processed: ", total_units)
     print("Number of Failed/Rejected entries: ", failed_entries)
-
-def load_inventory():
-    try:
-        with open('inventory.json', 'r') as file:
-            print("inventory.json found.")
-            inventory = json.load(file)
-        return inventory
-    except FileNotFoundError:
-        print("inventory.json not found. Creating a new inventory.json file.")
-        initial_inventory = []
-        with open("inventory.json", "w") as file:
-            json.dump(initial_inventory, file)
-        return initial_inventory
 
 def save_inventory(taxed_user_input, failed_entries):
     with open("inventory.txt", "r") as file:
@@ -99,7 +109,7 @@ def main():
         )
         user_input = get_valid_input()
         if user_input == "1":
-            display_all_products()
+            display_all_products(inventory)
         elif user_input == "2":
             pass
         elif user_input == "3":
