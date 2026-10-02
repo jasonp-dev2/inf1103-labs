@@ -1,23 +1,40 @@
-# Persistent Inventory Auditor
+#  Inventory Manager
 
-# python list (array) for inventory,
-# inventory = [transaction count, total inventory, failed entries]
-# Current inventory: in get_valid_input 
+#data structure is ID: 001 | Name: Laptop | Price: $100.5 | Stock: 50
+
 
 import ast
+import json
 
 def get_valid_input():
-    user_input = input("Please enter stock quantity (To quit, enter 'quit'): ")
-    if user_input.lower() == "quit":
-        quit = True
-        return quit
-    if(user_input.isdigit()):
-        if(int(user_input)<0):
-            return None
-        else:  
-            return int(user_input)
+    user_input = input("Enter option: " + "\n")
+
+    if user_input == "1":
+        return user_input
+    elif user_input == "2":
+        return user_input
+    elif user_input == "3":
+        return user_input
+    elif user_input == "4":
+        return user_input
+    elif user_input == "5":
+        return user_input
+    elif user_input == "6":
+        return False
     else:
         return None
+
+def display_all_products():
+    pass
+
+def add_product():
+    pass
+
+def update_stock():
+    pass
+
+def search_product():
+    pass
 
 def process_delivery(current_total, new_value):
     inventory = current_total + new_value
@@ -33,23 +50,16 @@ def generate_Report(total_units, failed_entries):
 
 def load_inventory():
     try:
-        total_qty = 0
-        total_failed_entries = 0
-        with open("inventory.txt", "r") as file:
-            for line in file:
-                line = line.strip()
-                if not line:
-                    continue
-                record = ast.literal_eval(line)
-                total_qty += record[1]
-                total_failed_entries += record[2]
-        return total_qty, total_failed_entries    
-    
+        with open('inventory.json', 'r') as file:
+            print("inventory.json found.")
+            inventory = json.load(file)
+        return inventory
     except FileNotFoundError:
-        initial_inventory = [0, 0, 0]
-        with open("inventory.txt", "w") as file:
-            file.write(str(initial_inventory) + "\n")
-        return initial_inventory[1], initial_inventory[2]
+        print("inventory.json not found. Creating a new inventory.json file.")
+        initial_inventory = []
+        with open("inventory.json", "w") as file:
+            json.dump(initial_inventory, file)
+        return initial_inventory
 
 def save_inventory(taxed_user_input, failed_entries):
     with open("inventory.txt", "r") as file:
@@ -67,32 +77,52 @@ def save_inventory(taxed_user_input, failed_entries):
         
 def main():
     user_input = ""
-    quit = False
     inventory, failedentry = load_inventory()
 
-    while (quit==False):
-        print("\nCurrent Inventory entries: " + "\n")
-        with open("inventory.txt", "r") as file:
-            for line in file:
-                inventory_List = line.strip("[]").split(",")
-                print("Entry ID: ", inventory_List[0], " | Inventory added: ", inventory_List[1], " | Failed Entries: ", inventory_List[2])
+    while True:
+        print(
+            "===================================" + "\n" 
+            + "INVENTROY MANAGEMENT SYSTEM " + "\n" 
+            + "===================================" + "\n" 
+        )
+        inventory = load_inventory()
+        print("Inventory loaded successfully.")
+        print(
+            + "---------------MENU----------------" + "\n"
+            + "1. Display All Products" + "\n"
+            + "2. Add Product" + "\n"
+            + "3. Update Stock" + "\n"
+            + "4. Search Product" + "\n"
+            + "5. Save Inventory" + "\n"
+            + "6. Exit" + "\n"
+            + "-----------------------------------" + "\n"
+        )
         user_input = get_valid_input()
-        if user_input is not None and user_input is not True:
-            taxed_user_input = calculate_tax(user_input)
+        if user_input == "1":
+            display_all_products()
+        elif user_input == "2":
+            pass
+        elif user_input == "3":
+            pass
+        elif user_input == "4":
+            pass
+        elif user_input == "5":
+            pass
+        elif user_input is False:
+            generate_Report(inventory, failedentry)
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+
+"""taxed_user_input = calculate_tax(user_input)
             inventory = process_delivery(inventory, taxed_user_input)
             save_inventory(taxed_user_input, failedentry)
             if inventory>500:
                 generate_Report(inventory, failedentry)
-                break
-        elif user_input is True:
-            generate_Report(inventory, failedentry)
-            break
-        else:
-            failedentry += 1
-            print("No valid input received. Please try again.")
-
-if __name__ == "__main__":
-    main()
-    
+                break"""
 
 
