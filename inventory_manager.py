@@ -55,9 +55,11 @@ def add_product(inventory):
     product_id = input("Product ID: ")
     product_name = input("Product Name: ")
     product_price = float(input("Product Price: "))
-    formatted_price = f"${product_price:.2f}"
+
+    formatted_price = f"{product_price:.2f}"
     product_stock = int(input("Product Stock: "))
     taxed_stock = calculate_tax(product_stock)
+
     if product_stock>500:
         print("Stock limit exceeded. Cannot add product with stock greater than 500.")
         return None
@@ -75,27 +77,36 @@ def add_product(inventory):
 def update_stock(inventory):
     print("Update Stock" + "\n")
     product_id = input("Enter Product ID: ")
-    print("Searching for product in inventory...", inventory[product_id])
 
     try:
-        for product_id, selected_product in inventory.items():
-            print("Selected Product: ", selected_product["ID"] + "\n")
+        for info in inventory[product_id].items():
             print(
                 f"Product Found: \n", 
-                f"Selected Product: {selected_product["Name"]} \n", 
-                f"Stock: {selected_product["Stock"]} \n" 
+                f"Selected Product: {inventory[product_id]['Name']} \n", 
+                f"Stock: {inventory[product_id]['Stock']} \n" 
             )
             new_stock = int(input("Enter new stock quantity: "))
-            selected_product["Stock"] = calculate_tax(new_stock)
-            print("Stock updated successfully for product ID: ", selected_product["ID"])
-            print("Updated Stock: ", selected_product["Stock"])
+            inventory[product_id]["Stock"] = calculate_tax(new_stock)
+            print("Stock updated successfully!" + "\n")
             return inventory
     except:
         return None
 
 
-def search_product():
-    pass
+def search_product(inventory):
+    print("Search Product" + "\n")
+    product_id = input("Enter Product ID: ")
+
+    for info in inventory[product_id].items():
+        print(
+            "Product Found: " + "\n",
+            "-----------------------------------" + "\n"
+            f"ID: {inventory[product_id]['ID']} \n", 
+            f"Name: {inventory[product_id]['Name']}", 
+            f"Price: ${inventory[product_id]['Price']} \n", 
+            f"Stock: {inventory[product_id]['Stock']} \n",
+            "-----------------------------------" + "\n"
+    )
 
 def process_delivery(current_total, new_value):
     inventory = current_total + new_value
@@ -105,24 +116,15 @@ def calculate_tax(amount):
     amount += amount * 0.1
     return round(amount)
 
-def generate_Report(total_units, failed_entries):
-    print("Total Deliveries Processed: ", total_units)
-    print("Number of Failed/Rejected entries: ", failed_entries)
-
-def save_inventory(taxed_user_input, failed_entries):
-    with open("inventory.txt", "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
-    if lines:
-        last_record = ast.literal_eval(lines[-1])
-        new_entryId = last_record[0] + 1
-
-    new_record = [new_entryId, taxed_user_input, failed_entries]
-    with open("inventory.txt", "a") as file:
-        file.write(str(new_record) + "\n")
-        print("New inventory entry added: ")
-        print("Entry ID: ", new_record[0], " | Inventory added: ", new_record[1], " | Failed Entries: ", new_record[2])
-        print("\n" + "Inventory updated successfully to inventory.txt")
-        
+def save_inventory(inventory):
+    try:
+        with open("inventory.json", "a") as file:
+            json.dump(inventory, file)
+        print("Saving inventory...")
+        print("Inventory saved successfully to inventory.json")
+    except Exception as e:
+        print(f"Error saving inventory: {e}")
+    
 def main():
     print(
         "===================================" + "\n" 
@@ -159,11 +161,10 @@ def main():
             else:
                 print("Stock update failed. Please try again.")
         elif user_input == "4":
-            pass
+            search_product(inventory)
         elif user_input == "5":
-            pass
+            save_inventory(inventory)
         elif user_input is False:
-            generate_Report(inventory)
             break
         else:
             print("Invalid option. Please try again.")
@@ -171,12 +172,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-"""taxed_user_input = calculate_tax(user_input)
-            inventory = process_delivery(inventory, taxed_user_input)
-            save_inventory(taxed_user_input, failedentry)
-            if inventory>500:
-                generate_Report(inventory, failedentry)
-                break"""
 
 
