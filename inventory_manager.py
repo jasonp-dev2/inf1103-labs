@@ -48,7 +48,7 @@ def display_all_products(inventory):
             f" | Price: ${info["Price"]}", 
             f" | Stock: {info["Stock"]}" 
         )
-    print("-----------------------------------" + "\n")
+    print("\n" + "-----------------------------------" + "\n")
 
 def add_product(inventory):    
     print("Add Product" + "\n")
@@ -69,23 +69,27 @@ def add_product(inventory):
         "Stock": taxed_stock
     }
     inventory[product_id] = product_entry
-    print(str(product_entry))
+    #print(str(product_entry))
     return inventory
 
 def update_stock(inventory):
     print("Update Stock" + "\n")
     product_id = input("Enter Product ID: ")
+    print("Searching for product in inventory...", inventory[product_id])
 
     try:
-        selected_product = inventory[product_id]
-        print(
-            "Product Found: " + "\n"
-            "Selected Product: ", selected_product["Name"] + "\n" 
-            "Current Stock: ", selected_product["Stock"] + "\n"
-        )
-        new_stock = int(input("Enter new stock quantity: "))
-        selected_product["Stock"] = new_stock
-        return inventory
+        for product_id, selected_product in inventory.items():
+            print("Selected Product: ", selected_product["ID"] + "\n")
+            print(
+                f"Product Found: \n", 
+                f"Selected Product: {selected_product["Name"]} \n", 
+                f"Stock: {selected_product["Stock"]} \n" 
+            )
+            new_stock = int(input("Enter new stock quantity: "))
+            selected_product["Stock"] = calculate_tax(new_stock)
+            print("Stock updated successfully for product ID: ", selected_product["ID"])
+            print("Updated Stock: ", selected_product["Stock"])
+            return inventory
     except:
         return None
 
