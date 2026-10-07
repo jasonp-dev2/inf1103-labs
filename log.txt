@@ -1,3 +1,51 @@
+commit 3314c49758c8e4fc21147a7a3cf1ebe6bdb27069
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Thu Oct 1 22:33:55 2026 +0800
+
+    Bug fix n finishing touches before submission
+
+commit efe5107b8cfe8379e270f0c56ccbca32113da57d
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Thu Oct 1 22:21:12 2026 +0800
+
+    Added visual for current inventory entries in inventory.txt
+
+commit d4e3e4e831ceed4d9e5f6c10e6240ce8d22d7f1d
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Sep 25 11:57:46 2026 +0800
+
+    added save_inventory() and edited load_inventory() to work with list, implemented inventory entry tracking within text file instead of locally
+
+commit c1c87760c213784d83aa38ca20609843d5794681
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Sep 25 10:28:34 2026 +0800
+
+    Added workingload_inventory() function
+
+commit 1e9eaab335f648c1ff3762bded0e16de4c41aeb1
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Sep 25 10:02:50 2026 +0800
+
+    Initial lab4
+
+commit 9f11dd7c79fba673824e40b17056512b3a74c049
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sun Sep 20 20:02:02 2026 +0800
+
+    Fixed incorrect tax implementation, quit = True break
+
+commit 0722b6871b7a3f9620eca03becaadee5d93a1ceb
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sun Sep 20 19:27:46 2026 +0800
+
+    Lab 3 Modular Design
+
+commit 506cb09bc14416e3e96d8fce8a70383b951429b2
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Thu Sep 17 00:37:20 2026 +0800
+
+    update repo
+
 commit 971eedcb935f97170c6880b7cf1941610cc21a59
 Author: Jason Phua <jasonphua2002@gmail.com>
 Date:   Sun Sep 13 12:05:38 2026 +0800

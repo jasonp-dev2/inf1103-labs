@@ -1,7 +1,5 @@
 # Modular Smart Inventory Auditor
 
-#
-
 def get_valid_input():
     user_input = input("Please enter stock quantity (To quit, enter 'quit'): ")
     if user_input.lower() == "quit":
