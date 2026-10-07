@@ -37,12 +37,12 @@ def load_inventory():
 def display_all_products(inventory):
     print("\n" + "Current Inventory: " + "\n")
     print("-----------------------------------" + "\n")
-    for products, info in inventory.items():
+    for info in inventory.values():
         print(
-            f"ID: {info["ID"]}", 
-            f" | Name: {info["Name"]}", 
-            f" | Price: ${info["Price"]}", 
-            f" | Stock: {info["Stock"]}" 
+            f"ID: {info['ID']}", 
+            f" | Name: {info['Name']}", 
+            f" | Price: ${info['Price']}", 
+            f" | Stock: {info['Stock']}" 
         )
     print("\n" + "-----------------------------------" + "\n")
 
