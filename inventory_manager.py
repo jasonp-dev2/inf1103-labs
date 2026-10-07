@@ -65,38 +65,40 @@ def add_product(inventory):
         "Stock": product_stock
     }
     inventory[product_id] = product_entry
-    #print(str(product_entry))
     return inventory
 
 def update_stock(inventory):
     print("\n" + "Update Stock")
     product_id = input("Enter Product ID: ")
 
-    try:
-        for info in inventory[product_id].items():
-            print(
-                f"Product Found: \n", 
-                f"Name: {inventory[product_id]['Name']} \n", 
-                f"Current Stock: {inventory[product_id]['Stock']} \n" 
-            )
-            new_stock = int(input("Enter new stock quantity: "))
-            inventory[product_id]["Stock"] = new_stock
-            return inventory
-    except:
+    if product_id in inventory:
+        product = inventory[product_id]
+        print(
+            "\n" + 
+            f"Product Found: \n", 
+            f"Name: {product['Name']} \n", 
+            f"Current Stock: {product['Stock']} \n" 
+        )
+        new_stock = int(input("Enter new stock quantity: "))
+        product["Stock"] = new_stock
+        return inventory
+    else:
         return None
 
 
 def search_product(inventory):
     print("\n" + "Search Product" + "\n")
     product_id = input("Enter Product ID: ")
+
     if product_id in inventory:
+        product = inventory[product_id]
         print(
             "Product Found: " + "\n",
             "-----------------------------------" + "\n"
-            f" ID: {inventory[product_id]['ID']} \n", 
-            f"Name: {inventory[product_id]['Name']}", 
-            f"Price: ${inventory[product_id]['Price']} \n", 
-            f"Stock: {inventory[product_id]['Stock']} \n",
+            f"ID: {product['ID']} \n", 
+            f"Name: {product['Name']}", 
+            f"Price: ${product['Price']} \n", 
+            f"Stock: {product['Stock']} \n",
             "-----------------------------------" + "\n"
         )
     else:
