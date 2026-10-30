@@ -49,9 +49,15 @@ class Inventory:
         else:
             return False
  
-
     def display_all(self):
-        pass
+        print("\n" + "Current Inventory: " + "\n")
+        print("-----------------------------------" + "\n")
+        for product_info in self.__products:
+            product = self.__products[product_info]
+            product.display_information()
+        print("\n" + "-----------------------------------" + "\n")
+
+
 
 
 inventory = Inventory()
@@ -62,5 +68,5 @@ if return_value is None:
 else:
     print("\n" + "Product added successfully!" + "\n")  
 
-inventory.search_product()
+inventory.display_all()
 
