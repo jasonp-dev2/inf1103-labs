@@ -49,41 +49,52 @@ def display_all_products(inventory):
     print("\n" + "-----------------------------------" + "\n")
 
 def add_product(inventory):    
-    print("\n" + "Add New Product" + "\n")
-    product_id = input("Product ID: ")
+    product_Id = input("Product ID: ")
     product_name = input("Product Name: ")
     product_price = float(input("Price: "))
     formatted_price = f"{product_price:.2f}"
     product_stock = int(input("Stock Quantity: "))
-
+    
     if product_stock>500:
-        print("Stock limit exceeded. Cannot add product with stock greater than 500.")
-        return None
+        print("Stock limit exceeded. Cannot add product with stock greater than 500. Please try again")
+        return False
 
-    product_entry = {
-        "ID": product_id,
-        "Name": product_name,
-        "Price": formatted_price,
-        "Stock": product_stock
-    }
-    inventory[product_id] = product_entry
-    return inventory
+    product = Product(product_Id, product_name, formatted_price, product_stock) #create product using product_Id as name
+    result = inventory.add_product(product_Id, product)
+    return result
 
 def update_stock(inventory):
     print("\n" + "Update Stock")
     product_id = input("Enter Product ID: ")
 
-    if product_id in inventory:
-        product = inventory[product_id]
+    try: 
+        found_product = inventory.search_product(product_id)
+        product_info = found_product.display_information()
         print(
             "\n" + 
             f"Product Found: \n", 
-            f"Name: {product['Name']} \n", 
-            f"Current Stock: {product['Stock']} \n" 
+            f"Name: {product_info["Name"]} \n", 
+            f"Current Stock: {product_info["Stock"]} \n" 
         )
         new_stock = int(input("Enter new stock quantity: "))
-        product["Stock"] = new_stock
-        return inventory
+        found_product.update_stock(new_stock)
+
+    for products in inventory:
+        product_info = products.display_information()
+        if product_info["ID"] == product_id:
+            found_product = product_info
+            #product = inventory[product_id]
+            print(
+                "\n" + 
+                f"Product Found: \n", 
+                f"Name: {found_product["Name"]} \n", 
+                f"Current Stock: {found_product["Stock"]} \n" 
+            )
+            new_stock = int(input("Enter new stock quantity: "))
+
+            #product["Stock"] = new_stock
+            return inventory 
+        
     else:
         return None
 
@@ -121,8 +132,8 @@ def main():
         + "INVENTORY MANAGEMENT SYSTEM " + "\n" + 
         "===================================" + "\n" 
     )
-    inventory_data = load_inventory()
-    #inventory = Inventory(inventory_data)
+    #inventory_data = load_inventory() old code
+    inventory = Inventory(load_inventory)
     print(
         "---------------MENU----------------" + "\n"
         + "1. Display All Products" + "\n"
@@ -138,15 +149,18 @@ def main():
         user_input = get_valid_input()
 
         if user_input == "1":
-            display_all_products(inventory_data)
+            #display_all_products(inventory) old code
+            inventory.display_all()
         elif user_input == "2":
-            return_value = Inventory.add_product()
-            if return_value is None:
+            return_value = add_product(inventory)
+            if return_value is False:
                 continue
-            else:
-                Product(return_value)
+            elif return_value is True:
                 print("\n" + "Product added successfully!" + "\n")   
+            else:
+                print("Unexpected error occurred adding product. Please try again")
             """
+            old code
             return_value = add_product(inventory)
             if return_value is None:
                 continue

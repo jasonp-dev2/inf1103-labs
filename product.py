@@ -5,22 +5,22 @@ Product class
 """
 
 class Product:
-    def __init__(self, product):
-        self.__product_Id = product["ID"]
-        self.__name = product["Name"]
-        self.__price = product["Price"]
-        self.__stock = product["Stock"]
+    def __init__(self, Id, name, price, stock):
+        self.__Id = Id
+        self.__name = name
+        self.__price = price
+        self.__stock = stock
        
     def update_stock(self, quantity):
         self.__stock = quantity
 
-    def display_information(self):
-        print(
-            f" ID: {self.__product_Id} \n", 
-            f"Name: {self.__name} \n", 
-            f"Price: ${self.__price} \n", 
-            f"Stock: {self.__stock} \n",
-        )
+    def display_information(self): #return product info as dict
+        return {
+            "ID": self.__Id, 
+            "Name": self.__name, 
+            "Price": self.__price, 
+            "Stock": self.__stock,
+        }
 
 """
 Testing
