@@ -15,12 +15,23 @@ class Product:
         self.__stock = quantity
 
     def display_information(self):
-        return {
-            "ID": self.__product_Id,
-            "Name": self.__name,
-            "Price": self.__price,
-            "Stock": self.__stock
-        }
+        print(
+            f" ID: {self.__product_Id} \n", 
+            f"Name: {self.__name} \n", 
+            f"Price: ${self.__price} \n", 
+            f"Stock: {self.__stock} \n",
+        )
 
+"""
+Testing
 
+product_info = {
+    "ID": "PD004",
+    "Name": "Laptop",
+    "Price": 500, 
+    "Stock": 10
+}
+product = Product(product_info)
 
+product.display_information()
+"""

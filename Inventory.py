@@ -9,7 +9,7 @@ import Product as pdt
 
 class Inventory:
     def __init__(self): #inventory is a nested dictionary loaded from inventory.json
-        self.__products = []
+        self.__products = {}
 
     def add_product(self):
         product_Id = input("Product ID: ")
@@ -23,34 +23,44 @@ class Inventory:
             return None
 
         product_entry = {
-            "ID": product_Id,
+            "ID": product_Id, #e.g PD001
             "Name": product_name,
             "Price": formatted_price,
             "Stock": product_stock
         }
 
-        product_Id = pdt.Product(product_entry)
-        self.__products.append(product_Id)
+        #product_Id = pdt.Product(product_entry) #PD001 = object
+        self.__products[product_Id] = pdt.Product(product_entry)
         print("\n" + "Product added successfully!" + "\n")  
 
-        #self.__inventory[product_Id] = pdt.Product(product_entry)
 
-    def search_product(self, product_Id):
-        return {
-            f"Product ID: {self.__product_Id}\n"
-            f"Product Name: {self.__name}\n"
-            f"Product Price: {self.__price}\n"
-            f"Product Stock: {self.__stock}\n"
-        }
+    def search_product(self):
+        print("\n" + "Search Product" + "\n")
+        product_id = input("Enter Product ID: ")
+
+        if product_id in self.__products:
+            product = self.__products[product_id]
+            print(
+                " Product Found: " + "\n",
+                "-----------------------------------" + "\n"
+                f"{product.display_information()}",
+                "-----------------------------------" + "\n"
+            )
+        else:
+            return False
+ 
 
     def display_all(self):
         pass
 
-"""inventory = Inventory()
+
+inventory = Inventory()
 
 return_value = inventory.add_product()
 if return_value is None:
     pass
 else:
-    print("\n" + "Product added successfully!" + "\n")  "
-"""
+    print("\n" + "Product added successfully!" + "\n")  
+
+inventory.search_product()
+

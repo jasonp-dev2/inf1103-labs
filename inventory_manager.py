@@ -94,6 +94,7 @@ def search_product(inventory):
 
     if product_id in inventory:
         product = inventory[product_id]
+        #product.displayinformation()
         print(
             " Product Found: " + "\n",
             "-----------------------------------" + "\n"
