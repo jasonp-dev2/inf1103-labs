@@ -1,6 +1,8 @@
 #  Inventory Manager
 
 import json
+import Product
+import Inventory
 
 def get_valid_input():
     user_input = input("Enter option: ")
@@ -93,7 +95,7 @@ def search_product(inventory):
     if product_id in inventory:
         product = inventory[product_id]
         print(
-            "Product Found: " + "\n",
+            " Product Found: " + "\n",
             "-----------------------------------" + "\n"
             f"ID: {product['ID']} \n", 
             f"Name: {product['Name']}", 
@@ -118,7 +120,8 @@ def main():
         + "INVENTORY MANAGEMENT SYSTEM " + "\n" + 
         "===================================" + "\n" 
     )
-    inventory = load_inventory()
+    inventory_data = load_inventory()
+    #inventory = Inventory(inventory_data)
     print(
         "---------------MENU----------------" + "\n"
         + "1. Display All Products" + "\n"
@@ -134,32 +137,40 @@ def main():
         user_input = get_valid_input()
 
         if user_input == "1":
-            display_all_products(inventory)
+            display_all_products(inventory_data)
         elif user_input == "2":
+            return_value = Inventory.add_product()
+            if return_value is None:
+                continue
+            else:
+                Product(return_value)
+                print("\n" + "Product added successfully!" + "\n")   
+            """
             return_value = add_product(inventory)
             if return_value is None:
                 continue
             else:
                 print("\n" + "Product added successfully!" + "\n")
+                """
         elif user_input == "3":
-            return_value = update_stock(inventory)
+            return_value = update_stock(inventory_data)
             if return_value:
                 print("Stock updated successfully!")
             else:
                 print("Stock update failed. Please try again.")
         elif user_input == "4":
-            return_value = search_product(inventory)
+            return_value = search_product(inventory_data)
             if return_value is False:
                 print("Product not found." + "\n")
         elif user_input == "5":
-            return_value = save_inventory(inventory)
+            return_value = save_inventory(inventory_data)
             if return_value:
                 print(
                     "\n" + "Saving inventory..." 
                     "\n" + "Inventory saved successfully to inventory.json!"
                 )
         elif user_input is False:
-            return_value = save_inventory(inventory)
+            return_value = save_inventory(inventory_data)
             if return_value:
                 print(
                     "\n" + "Saving inventory before exit..." 
