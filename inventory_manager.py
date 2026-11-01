@@ -1,8 +1,8 @@
 #  Inventory Manager
 
 import json
-import Product
-import Inventory
+from Product import Product
+from Inventory import Inventory
 
 def get_valid_input():
     user_input = input("Enter option: ")
@@ -27,7 +27,10 @@ def load_inventory():
         with open('inventory.json', 'r') as file:
             print("inventory.json found.")
             inventory = json.load(file)
-            print("Inventory loaded successfully." + "\n")
+        for product_id, product in inventory.items():
+            product_Object = Product(*product.values())
+            inventory[product_id] = product_Object
+        print("Inventory loaded successfully." + "\n")
         return inventory
     except FileNotFoundError:
         print("inventory.json not found. Creating a new inventory.json file.")
@@ -35,18 +38,6 @@ def load_inventory():
         with open("inventory.json", "w") as file:
             json.dump(initial_inventory, file)
         return initial_inventory
-
-def display_all_products(inventory):
-    print("\n" + "Current Inventory: " + "\n")
-    print("-----------------------------------" + "\n")
-    for info in inventory.values():
-        print(
-            f"ID: {info['ID']}", 
-            f" | Name: {info['Name']}", 
-            f" | Price: ${info['Price']}", 
-            f" | Stock: {info['Stock']}" 
-        )
-    print("\n" + "-----------------------------------" + "\n")
 
 def add_product(inventory):    
     product_Id = input("Product ID: ")
@@ -73,55 +64,43 @@ def update_stock(inventory):
         print(
             "\n" + 
             f"Product Found: \n", 
-            f"Name: {product_info["Name"]} \n", 
-            f"Current Stock: {product_info["Stock"]} \n" 
+            f"Name: {product_info['Name']} \n", 
+            f"Current Stock: {product_info['Stock']} \n" 
         )
         new_stock = int(input("Enter new stock quantity: "))
+        if new_stock > 500:
+            print("Stock quantity can't be above 500. Please try again")
+            return False
         found_product.update_stock(new_stock)
-
-    for products in inventory:
-        product_info = products.display_information()
-        if product_info["ID"] == product_id:
-            found_product = product_info
-            #product = inventory[product_id]
-            print(
-                "\n" + 
-                f"Product Found: \n", 
-                f"Name: {found_product["Name"]} \n", 
-                f"Current Stock: {found_product["Stock"]} \n" 
-            )
-            new_stock = int(input("Enter new stock quantity: "))
-
-            #product["Stock"] = new_stock
-            return inventory 
-        
-    else:
-        return None
-
+        return True
+    except:
+        return False
 
 def search_product(inventory):
     print("\n" + "Search Product" + "\n")
     product_id = input("Enter Product ID: ")
 
-    if product_id in inventory:
-        product = inventory[product_id]
-        #product.displayinformation()
+    try: 
+        found_product = inventory.search_product(product_id)
+        product_info = found_product.display_information()
         print(
             " Product Found: " + "\n",
             "-----------------------------------" + "\n"
-            f"ID: {product['ID']} \n", 
-            f"Name: {product['Name']}", 
-            f"Price: ${product['Price']} \n", 
-            f"Stock: {product['Stock']} \n",
+            f" ID: {product_info['ID']} \n", 
+            f"Name: {product_info['Name']} \n", 
+            f"Price: ${product_info['Price']} \n", 
+            f"Stock: {product_info['Stock']} \n",
             "-----------------------------------" + "\n"
         )
-    else:
+    except:
         return False
 
 def save_inventory(inventory):
     try:
+        inventory_Data = inventory.get_Inventory()
+        
         with open("inventory.json", "w") as file:
-            json.dump(inventory, file, indent=4)
+            json.dump(inventory_Data, file, indent=4)
         return True
     except Exception as e:
         print(f"Error saving inventory: {e}")
@@ -132,15 +111,15 @@ def main():
         + "INVENTORY MANAGEMENT SYSTEM " + "\n" + 
         "===================================" + "\n" 
     )
-    #inventory_data = load_inventory() old code
-    inventory = Inventory(load_inventory)
+    inventory_data = load_inventory() 
+    inventory = Inventory(inventory_data)
     print(
         "---------------MENU----------------" + "\n"
         + "1. Display All Products" + "\n"
         + "2. Add Product" + "\n"
         + "3. Update Stock" + "\n"
         + "4. Search Product" + "\n"
-        + "5. Save Inventory" + "\n"
+        + "5. Save Inventory" + "\n"      
         + "6. Exit" + "\n" +
         "-----------------------------------" + "\n"
     )
@@ -149,43 +128,38 @@ def main():
         user_input = get_valid_input()
 
         if user_input == "1":
-            #display_all_products(inventory) old code
-            inventory.display_all()
+            try:
+                inventory.display_all()
+            except:
+                print("Error occurred. Please try again")
+                continue
         elif user_input == "2":
             return_value = add_product(inventory)
             if return_value is False:
                 continue
-            elif return_value is True:
+            elif return_value:
                 print("\n" + "Product added successfully!" + "\n")   
             else:
                 print("Unexpected error occurred adding product. Please try again")
-            """
-            old code
-            return_value = add_product(inventory)
-            if return_value is None:
-                continue
-            else:
-                print("\n" + "Product added successfully!" + "\n")
-                """
         elif user_input == "3":
-            return_value = update_stock(inventory_data)
+            return_value = update_stock(inventory)
             if return_value:
                 print("Stock updated successfully!")
             else:
                 print("Stock update failed. Please try again.")
         elif user_input == "4":
-            return_value = search_product(inventory_data)
+            return_value = search_product(inventory)
             if return_value is False:
                 print("Product not found." + "\n")
         elif user_input == "5":
-            return_value = save_inventory(inventory_data)
+            return_value = save_inventory(inventory)
             if return_value:
                 print(
                     "\n" + "Saving inventory..." 
                     "\n" + "Inventory saved successfully to inventory.json!"
                 )
         elif user_input is False:
-            return_value = save_inventory(inventory_data)
+            return_value = save_inventory(inventory)
             if return_value:
                 print(
                     "\n" + "Saving inventory before exit..." 
