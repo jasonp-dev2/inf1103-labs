@@ -4,9 +4,11 @@ Product class
     -Manages its own state
 """
 
-class Product:
+from abc import ABC, abstractmethod
+
+class Product(ABC):
     def __init__(self, Id, name, price, stock):
-        self.__Id = Id
+        self.__product_id = Id
         self.__name = name
         self.__price = price
         self.__stock = stock
@@ -16,22 +18,12 @@ class Product:
 
     def display_information(self): #return product info as dict
         return {
-            "ID": self.__Id, 
+            "ID": self.__product_id, 
             "Name": self.__name, 
             "Price": self.__price, 
             "Stock": self.__stock,
         }
-
-"""
-Testing
-
-product_info = {
-    "ID": "PD004",
-    "Name": "Laptop",
-    "Price": 500, 
-    "Stock": 10
-}
-product = Product(product_info)
-
-product.display_information()
-"""
+    
+    @abstractmethod
+    def get_fulfilment_info(self):
+        pass

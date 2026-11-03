@@ -2,37 +2,37 @@
     "P001": {
         "ID": "P001",
         "Name": "lappy",
-        "Price": "500.00",
+        "Price": 500.00,
         "Stock": 10
     },
     "P002": {
         "ID": "P002",
         "Name": "console",
-        "Price": "400.00",
+        "Price": 400.00,
         "Stock": 10
     },
     "P003": {
         "ID": "P003",
         "Name": "phone",
-        "Price": "200.00",
+        "Price": 200.00,
         "Stock": 20
     },
     "P004": {
         "ID": "P004",
         "Name": "keyboard",
-        "Price": "20.00",
+        "Price": 20.00,
         "Stock": 25
     },
     "P005": {
         "ID": "P005",
         "Name": "mice",
-        "Price": "40.00",
+        "Price": 40.00,
         "Stock": 25
     },
     "P006": {
         "ID": "P006",
         "Name": "power adaptor",
-        "Price": "20.00",
+        "Price": 20.00,
         "Stock": 60
     }
 }

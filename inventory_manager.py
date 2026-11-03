@@ -42,15 +42,14 @@ def load_inventory():
 def add_product(inventory):    
     product_Id = input("Product ID: ")
     product_name = input("Product Name: ")
-    product_price = float(input("Price: "))
-    formatted_price = f"{product_price:.2f}"
+    product_price = round(float(input("Price: ")),2)
     product_stock = int(input("Stock Quantity: "))
     
     if product_stock>500:
         print("Stock limit exceeded. Cannot add product with stock greater than 500. Please try again")
         return False
 
-    product = Product(product_Id, product_name, formatted_price, product_stock) #create product using product_Id as name
+    product = Product(product_Id, product_name, product_price, product_stock) #create product using product_Id as name
     result = inventory.add_product(product_Id, product)
     return result
 
