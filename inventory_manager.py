@@ -2,6 +2,8 @@
 
 import json
 from Product import Product
+from PhysicalProduct import PhysicalProduct
+from DigitalProduct import DigitalProduct
 from Inventory import Inventory
 
 def get_valid_input():
@@ -27,9 +29,31 @@ def load_inventory():
         with open('inventory.json', 'r') as file:
             print("inventory.json found.")
             inventory = json.load(file)
+        """""
         for product_id, product in inventory.items():
             product_Object = Product(*product.values())
             inventory[product_id] = product_Object
+        """""
+        print(f"Inventory to be converted into objects...{inventory.items()}")
+        for product_identifier, product_dicts in inventory.items():
+            if product_identifier == "Physical":
+                print(f"Products identified as physical: {product_dicts.items()}")
+                for product_id, product in product_dicts.items():
+                    product_Object = PhysicalProduct(*product.values())
+                    print(
+                        f"Physical Product as dictionary: {product.values()}" + '\n' + 
+                        f"Physical Product as object: {product_Object}"
+                    )
+                    product_dicts[product_id] = product_Object
+            if product_identifier == "Digital":
+                print(f"Products identified as digital: {product_dicts.items()}")
+                for product_id, product in product_dicts.items():
+                    product_Object = DigitalProduct(*product.values())
+                    print(
+                        f"Digital Product as dictionary: {product.values()}" + '\n' + 
+                        f"Digital Product as object: {product_Object}"
+                    )
+                    product_dicts[product_id] = product_Object
         print("Inventory loaded successfully." + "\n")
         return inventory
     except FileNotFoundError:
@@ -39,19 +63,52 @@ def load_inventory():
             json.dump(initial_inventory, file)
         return initial_inventory
 
-def add_product(inventory):    
-    product_Id = input("Product ID: ")
-    product_name = input("Product Name: ")
-    product_price = round(float(input("Price: ")),2)
-    product_stock = int(input("Stock Quantity: "))
-    
-    if product_stock>500:
-        print("Stock limit exceeded. Cannot add product with stock greater than 500. Please try again")
-        return False
+def display_all(inventory):
+    print("\n" + "Current Inventory: " + "\n")
+    print("-----------------------------------" + "\n")
+    for product in self.__products.values():
+        product_info = product.display_information()
+        return product_info
+        try:
+            print(
+                f" ID: {product_info['ID']} \n", 
+                f"Name: {product_info['Name']} \n", 
+                f"Price: ${product_info['Price']} \n", 
+                f"Stock: {product_info['Stock']} \n",
+            )
+        except:
+            print("Error retrieving inventory")
+            pass
+    print("\n" + "-----------------------------------" + "\n")
 
-    product = Product(product_Id, product_name, product_price, product_stock) #create product using product_Id as name
+def add_product(inventory):
+
+    while True:
+        try:
+            product_type = input("Type '1' to enter a physical product, '2' for a digital product: ")
+
+            if product_type is '1' or '2':
+                product_Id = input("Product ID: ")
+                product_name = input("Product Name: ")
+                product_price = round(float(input("Price: ")),2)
+                product_stock = int(input("Stock Quantity: "))
+
+                if product_stock>500:
+                    print("Stock limit exceeded. Cannot add product with stock greater than 500")
+                if product_type == '1':
+                    product_weight = round(float(input("Weight: ")),2)
+                    product = PhysicalProduct(product_Id, product_name, product_price, product_stock, product_weight) #create product using product_Id as name
+                elif product_type == '2':
+                    product_download_size = round(float(input("Download_Size: ")),2)
+                    product = DigitalProduct(product_Id, product_name, product_price, product_stock, product_download_size) #create product using product_Id as name
+                break
+        except ValueError:
+            print("Invalid Input. Please try again")
+            continue
+
     result = inventory.add_product(product_Id, product)
-    return result
+    return result 
+
 
 def update_stock(inventory):
     print("\n" + "Update Stock")
@@ -96,10 +153,24 @@ def search_product(inventory):
 
 def save_inventory(inventory):
     try:
-        inventory_Data = inventory.get_Inventory()
-        
+        inventory_Data = inventory.display_all()
+        physical_Keys = {
+            k: v for k, v in inventory_Data.items() 
+            if "Weight" in v and v["Weight"] is not None
+        }
+        digital_Keys = {
+            k: v for k, v in inventory_Data.items() 
+            if "Download_Size" in v and v["Download_Size"] is not None
+        }
+        #create dict with physical and digital product identifiers
+        inventory_Identifier = {}
+        if physical_Keys:
+            inventory_Identifier["Physical"] = physical_Keys
+        if digital_Keys:
+            inventory_Identifier["Digital"] = digital_Keys
+    
         with open("inventory.json", "w") as file:
-            json.dump(inventory_Data, file, indent=4)
+            json.dump(inventory_Identifier, file, indent=4)
         return True
     except Exception as e:
         print(f"Error saving inventory: {e}")

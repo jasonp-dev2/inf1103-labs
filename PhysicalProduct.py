@@ -19,9 +19,13 @@ class PhysicalProduct(Product, CanBeShipped):
     def get_fulfilment_info():
         return "This product requires physical shipping."
 
+    def calculate_shipping_cost(weight):
+        return super().calculate_shipping_cost()
 
 
-
+"""""
+#Testing
 PP1 = PhysicalProduct("PD002", "Anvil", 150.50, 30, 500)
 
 print(PP1.display_information())
+"""

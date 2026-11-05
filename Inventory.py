@@ -23,13 +23,15 @@ class Inventory:
             return product
         except:
             return False
-        
+
+    """""
     def display_all(self):
         print("\n" + "Current Inventory: " + "\n")
         print("-----------------------------------" + "\n")
         for product in self.__products.values():
             product_info = product.display_information()
             try:
+                
                 print(
                     f" ID: {product_info['ID']} \n", 
                     f"Name: {product_info['Name']} \n", 
@@ -40,8 +42,9 @@ class Inventory:
                 print("Error retrieving inventory")
                 pass
         print("\n" + "-----------------------------------" + "\n")
+        """
 
-    def get_Inventory(self):
+    def display_all(self):
         export_Inventory = {}
         for product_id, product in self.__products.items():
             export_Inventory[product_id] = product.display_information()

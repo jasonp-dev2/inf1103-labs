@@ -1,38 +1,27 @@
 {
-    "P001": {
-        "ID": "P001",
-        "Name": "lappy",
-        "Price": 500.00,
-        "Stock": 10
+    "Physical": {
+        "P001": {
+            "ID": "P001",
+            "Name": "Laptop",
+            "Price": 500.0,
+            "Stock": 10,
+            "Weight": 5.0
+        },
+        "P002": {
+            "ID": "P002",
+            "Name": "Mouse",
+            "Price": 20.0,
+            "Stock": 56,
+            "Weight": 1.0
+        }
     },
-    "P002": {
-        "ID": "P002",
-        "Name": "console",
-        "Price": 400.00,
-        "Stock": 10
-    },
-    "P003": {
-        "ID": "P003",
-        "Name": "phone",
-        "Price": 200.00,
-        "Stock": 20
-    },
-    "P004": {
-        "ID": "P004",
-        "Name": "keyboard",
-        "Price": 20.00,
-        "Stock": 25
-    },
-    "P005": {
-        "ID": "P005",
-        "Name": "mice",
-        "Price": 40.00,
-        "Stock": 25
-    },
-    "P006": {
-        "ID": "P006",
-        "Name": "power adaptor",
-        "Price": 20.00,
-        "Stock": 60
+    "Digital": {
+        "D001": {
+            "ID": "D001",
+            "Name": "Anti-hack",
+            "Price": 500.0,
+            "Stock": 10,
+            "Download_Size": 50.0
+        }
     }
 }
