@@ -4,7 +4,7 @@
             "ID": "P001",
             "Name": "Laptop",
             "Price": 500.0,
-            "Stock": 10,
+            "Stock": 25,
             "Weight": 5.0
         },
         "P002": {

@@ -8,6 +8,7 @@ Inventory class
 
 class Inventory:
     def __init__(self, data): #constructor using data loaded from inventory.json
+        #print("Data passed into Inventory constructor: ", data)
         self.__products = data
 
     def add_product(self, product_Id, product):
@@ -15,7 +16,7 @@ class Inventory:
             self.__products[product_Id] = product
             return True
         except:
-            return "Error"
+            return "Error adding product"
 
     def search_product(self, product_Id):
         try:
@@ -31,7 +32,6 @@ class Inventory:
         for product in self.__products.values():
             product_info = product.display_information()
             try:
-                
                 print(
                     f" ID: {product_info['ID']} \n", 
                     f"Name: {product_info['Name']} \n", 
@@ -47,7 +47,8 @@ class Inventory:
     def display_all(self):
         export_Inventory = {}
         for product_id, product in self.__products.items():
-            export_Inventory[product_id] = product.display_information()
-
+            #print(f"Checking product ID: {product_id}, Type: {type(product)}")
+            export_Inventory[product_id] = product
         return export_Inventory
+    
 

@@ -29,12 +29,8 @@ def load_inventory():
         with open('inventory.json', 'r') as file:
             print("inventory.json found.")
             inventory = json.load(file)
-        """""
-        for product_id, product in inventory.items():
-            product_Object = Product(*product.values())
-            inventory[product_id] = product_Object
-        """""
         print(f"Inventory to be converted into objects...{inventory.items()}")
+        initialise_Inventory = {}
         for product_identifier, product_dicts in inventory.items():
             if product_identifier == "Physical":
                 print(f"Products identified as physical: {product_dicts.items()}")
@@ -44,7 +40,7 @@ def load_inventory():
                         f"Physical Product as dictionary: {product.values()}" + '\n' + 
                         f"Physical Product as object: {product_Object}"
                     )
-                    product_dicts[product_id] = product_Object
+                    initialise_Inventory[product_id] = product_Object
             if product_identifier == "Digital":
                 print(f"Products identified as digital: {product_dicts.items()}")
                 for product_id, product in product_dicts.items():
@@ -53,9 +49,10 @@ def load_inventory():
                         f"Digital Product as dictionary: {product.values()}" + '\n' + 
                         f"Digital Product as object: {product_Object}"
                     )
-                    product_dicts[product_id] = product_Object
+                    initialise_Inventory[product_id] = product_Object
+        print(f"Inventory after conversion: {initialise_Inventory}")
         print("Inventory loaded successfully." + "\n")
-        return inventory
+        return initialise_Inventory
     except FileNotFoundError:
         print("inventory.json not found. Creating a new inventory.json file.")
         initial_inventory = {}
@@ -63,23 +60,43 @@ def load_inventory():
             json.dump(initial_inventory, file)
         return initial_inventory
 
-def display_all(inventory):
-    print("\n" + "Current Inventory: " + "\n")
+
+def display_all_products(inventory):
+    print("\n" + "Current Inventory: ")
     print("-----------------------------------" + "\n")
-    for product in self.__products.values():
-        product_info = product.display_information()
-        return product_info
-        try:
-            print(
+    try:
+        product_dicts = inventory.display_all()
+        try: 
+            for product in product_dicts.values():
+                product_info = product.display_information()
+                print(
                 f" ID: {product_info['ID']} \n", 
                 f"Name: {product_info['Name']} \n", 
                 f"Price: ${product_info['Price']} \n", 
                 f"Stock: {product_info['Stock']} \n",
-            )
-        except:
-            print("Error retrieving inventory")
-            pass
+                )
+                if 'Weight' in product_info:
+                    print( 
+                        f" Weight: {product_info['Weight']}KG \n",
+                        f"Cost of shipping: ${product.calculate_shipping_cost()} \n"
+                        f" {product.get_fulfilment_info()} \n"
+                    )
+                try:
+                    if 'Download_Size' in product_info:
+                        print( 
+                            f"Download_Size: {product_info['Download_Size']}MB \n",
+                            f"{product.get_fulfilment_info()}"
+                        )
+                except Exception as e:
+                    print("Error occured: ", e)
+        except Exception as e:
+            print("Error occured:", e)
+    except:
+        print("Error retrieving inventory")
+        pass
     print("\n" + "-----------------------------------" + "\n")
+
+
 
 def add_product(inventory):
 
@@ -146,21 +163,35 @@ def search_product(inventory):
             f"Name: {product_info['Name']} \n", 
             f"Price: ${product_info['Price']} \n", 
             f"Stock: {product_info['Stock']} \n",
-            "-----------------------------------" + "\n"
         )
+        if "Weight" in product_info:
+            print( 
+                f" Weight: {product_info['Weight']}KG \n",
+                f"Cost of shipping: {found_product.calculate_shipping_cost()} \n",
+                f"{found_product.get_fulfilment_info()} \n",
+                "-----------------------------------" + "\n"
+            )
+        if "Download_Size" in product_info:
+            print( 
+                f"Download_Size: {product_info['Download_Size']}MB \n",
+                f"{found_product.get_fulfilment_info()} \n",
+                "----------------------------------- \n"
+            )
     except:
         return False
 
 def save_inventory(inventory):
     try:
         inventory_Data = inventory.display_all()
+        for product_id, product in inventory_Data.items(): #converting object to dict
+            inventory_Data[product_id] = product.display_information()
         physical_Keys = {
             k: v for k, v in inventory_Data.items() 
-            if "Weight" in v and v["Weight"] is not None
+            if "Weight" in v
         }
         digital_Keys = {
             k: v for k, v in inventory_Data.items() 
-            if "Download_Size" in v and v["Download_Size"] is not None
+            if "Download_Size" in v
         }
         #create dict with physical and digital product identifiers
         inventory_Identifier = {}
@@ -199,7 +230,7 @@ def main():
 
         if user_input == "1":
             try:
-                inventory.display_all()
+                display_all_products(inventory)
             except:
                 print("Error occurred. Please try again")
                 continue

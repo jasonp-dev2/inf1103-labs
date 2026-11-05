@@ -16,16 +16,16 @@ class PhysicalProduct(Product, CanBeShipped):
         product_info["Weight"] = self.__weight #adds weight detail to dict
         return product_info
 
-    def get_fulfilment_info():
+    def get_fulfilment_info(self):
         return "This product requires physical shipping."
 
-    def calculate_shipping_cost(weight):
-        return super().calculate_shipping_cost()
-
+    def calculate_shipping_cost(self):
+        shipping_cost =  self.__weight * 3 #$3 per kg to ship
+        return shipping_cost
 
 """""
 #Testing
 PP1 = PhysicalProduct("PD002", "Anvil", 150.50, 30, 500)
 
-print(PP1.display_information())
-"""
+print(PP1.calculate_shipping_cost())
+"""""
