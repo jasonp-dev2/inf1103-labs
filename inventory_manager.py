@@ -1,7 +1,6 @@
 #  Inventory Manager
 
 import json
-from Product import Product
 from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
 from Inventory import Inventory
@@ -29,28 +28,16 @@ def load_inventory():
         with open('inventory.json', 'r') as file:
             print("inventory.json found.")
             inventory = json.load(file)
-        print(f"Inventory to be converted into objects...{inventory.items()}")
         initialise_Inventory = {}
         for product_identifier, product_dicts in inventory.items():
             if product_identifier == "Physical":
-                print(f"Products identified as physical: {product_dicts.items()}")
                 for product_id, product in product_dicts.items():
                     product_Object = PhysicalProduct(*product.values())
-                    print(
-                        f"Physical Product as dictionary: {product.values()}" + '\n' + 
-                        f"Physical Product as object: {product_Object}"
-                    )
                     initialise_Inventory[product_id] = product_Object
             if product_identifier == "Digital":
-                print(f"Products identified as digital: {product_dicts.items()}")
                 for product_id, product in product_dicts.items():
                     product_Object = DigitalProduct(*product.values())
-                    print(
-                        f"Digital Product as dictionary: {product.values()}" + '\n' + 
-                        f"Digital Product as object: {product_Object}"
-                    )
                     initialise_Inventory[product_id] = product_Object
-        print(f"Inventory after conversion: {initialise_Inventory}")
         print("Inventory loaded successfully." + "\n")
         return initialise_Inventory
     except FileNotFoundError:
@@ -104,7 +91,7 @@ def add_product(inventory):
         try:
             product_type = input("Type '1' to enter a physical product, '2' for a digital product: ")
 
-            if product_type is '1' or '2':
+            if product_type == '1' or '2':
                 product_Id = input("Product ID: ")
                 product_name = input("Product Name: ")
                 product_price = round(float(input("Price: ")),2)
@@ -173,7 +160,7 @@ def search_product(inventory):
             )
         if "Download_Size" in product_info:
             print( 
-                f"Download_Size: {product_info['Download_Size']}MB \n",
+                f"Download_Size: {product_info['Download_Size']} MB \n",
                 f"{found_product.get_fulfilment_info()} \n",
                 "----------------------------------- \n"
             )
