@@ -1,31 +1,30 @@
 """
-PhysicalProduct class
+DigitalProduct class
     -Subclass of Product 'parent' class
     -Stores additional 'download_size' attribute
 """
+
 from Product import Product
+from Supplier import Supplier
+
 
 class DigitalProduct(Product):
-    def __init__(self, Id, name, price, stock, download_size, ):
-        super().__init__(Id, name, price, stock)
-        self.__download_size = download_size
+    def __init__(
+        self,
+        product_id: str,
+        name: str,
+        price: float,
+        stock: int,
+        download_size: float,
+        supplier: Supplier | None = None,
+    ) -> None:
+        super().__init__(product_id, name, price, stock, supplier)
+        self.__download_size: float = download_size
 
-    def display_information(self): #return product info as dict
-            product_info = super().display_information() #receive parent product info, which is a dict
-            product_info["Download_Size"] = self.__download_size #adds download_size detail to dict
-            return product_info
+    def display_information(self) -> dict[str, str | float | int]:
+        product_info: dict[str, str | float | int] = super().display_information()
+        product_info["Download_Size"] = self.__download_size
+        return product_info
 
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         return "This product is delivered digitally."
-
-"""""
-Testing
-DP1 = DigitalProduct("PD001", "Software1", 100.50, 50, 50)
-
-print(DP1.display_information())
-print(DP1.get_fulfilment_info())
-
-P1 = Product("PD003", "lappy", 100.50, 50)
-
-print(P1.display_information())
-"""""

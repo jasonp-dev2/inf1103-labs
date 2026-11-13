@@ -4,7 +4,7 @@
             "ID": "P001",
             "Name": "Laptop",
             "Price": 500.0,
-            "Stock": 25,
+            "Stock": 23,
             "Weight": 5.0
         },
         "P002": {
@@ -13,6 +13,32 @@
             "Price": 20.0,
             "Stock": 56,
             "Weight": 1.0
+        },
+        "P003": {
+            "ID": "P003",
+            "Name": "keyboard",
+            "Price": 50.0,
+            "Stock": 25,
+            "Weight": 2.0
+        },
+        "P004": {
+            "ID": "P004",
+            "Name": "cup",
+            "Price": 5.0,
+            "Stock": 27,
+            "Weight": 0.5,
+            "Supplier": {
+                "ID": "S001",
+                "Name": "ikea",
+                "Contact Email": "ikea@gmail.com"
+            }
+        },
+        "P005": {
+            "ID": "P005",
+            "Name": "bottle",
+            "Price": 10.0,
+            "Stock": 60,
+            "Weight": 0.7
         }
     },
     "Digital": {

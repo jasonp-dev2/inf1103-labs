@@ -6,49 +6,27 @@ Inventory class
     -Displays products
 """
 
+from Product import Product
+
+
 class Inventory:
-    def __init__(self, data): #constructor using data loaded from inventory.json
-        #print("Data passed into Inventory constructor: ", data)
-        self.__products = data
+    def __init__(self, products: dict[str, Product] | None = None) -> None:
+        self.__products: dict[str, Product] = products.copy() if products else {}
 
-    def add_product(self, product_Id, product):
-        try:
-            self.__products[product_Id] = product
-            return True
-        except:
-            return "Error adding product"
-
-    def search_product(self, product_Id):
-        try:
-            product = self.__products[product_Id]
-            return product
-        except:
+    def add_product(self, product: Product) -> bool:
+        product_id: str = str(product.display_information()["ID"])
+        if product_id in self.__products:
             return False
+        self.__products[product_id] = product
+        return True
 
-    """""
-    def display_all(self):
-        print("\n" + "Current Inventory: " + "\n")
-        print("-----------------------------------" + "\n")
-        for product in self.__products.values():
-            product_info = product.display_information()
-            try:
-                print(
-                    f" ID: {product_info['ID']} \n", 
-                    f"Name: {product_info['Name']} \n", 
-                    f"Price: ${product_info['Price']} \n", 
-                    f"Stock: {product_info['Stock']} \n",
-                )
-            except:
-                print("Error retrieving inventory")
-                pass
-        print("\n" + "-----------------------------------" + "\n")
-        """
+    def remove_product(self, product_id: str) -> bool:
+        return self.__products.pop(product_id, None) is not None
 
-    def display_all(self):
-        export_Inventory = {}
-        for product_id, product in self.__products.items():
-            #print(f"Checking product ID: {product_id}, Type: {type(product)}")
-            export_Inventory[product_id] = product
-        return export_Inventory
-    
+    def find_product(self, product_id: str) -> Product | None:
+        return self.__products.get(product_id)
 
+    def display_all_products(self) -> None:    
+        for product in self.__products.values():        
+            product.display_information()
+            product.get_fulfilment_info()

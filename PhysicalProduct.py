@@ -3,29 +3,33 @@ PhysicalProduct class
     -Subclass of Product 'parent' class
     -Stores additional 'weight' attribute
 """
+
 from Product import Product
+from Supplier import Supplier
 from CanBeShipped import CanBeShipped
 
-class PhysicalProduct(Product, CanBeShipped):
-    def __init__(self, Id, name, price, stock, weight):
-        super().__init__(Id, name, price, stock)
-        self.__weight = weight
 
-    def display_information(self): #return product info as dict
-        product_info = super().display_information() #receive parent product info, which is a dict
-        product_info["Weight"] = self.__weight #adds weight detail to dict
+class PhysicalProduct(Product, CanBeShipped):
+    def __init__(
+        self,
+        product_id: str,
+        name: str,
+        price: float,
+        stock: int,
+        weight: float,
+        supplier: Supplier | None = None,
+    ) -> None:
+        super().__init__(product_id, name, price, stock, supplier)
+        self.__weight: float = weight
+
+    def display_information(self) -> dict[str, str | float | int]:
+        product_info: dict[str, str | float | int] = super().display_information()
+        product_info["Weight"] = self.__weight
         return product_info
 
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         return "This product requires physical shipping."
 
-    def calculate_shipping_cost(self):
-        shipping_cost =  self.__weight * 3 #$3 per kg to ship
+    def calculate_shipping_cost(self) -> float:
+        shipping_cost: float = self.__weight * 3.0  # $3 per kg to ship
         return shipping_cost
-
-"""""
-#Testing
-PP1 = PhysicalProduct("PD002", "Anvil", 150.50, 30, 500)
-
-print(PP1.calculate_shipping_cost())
-"""""
