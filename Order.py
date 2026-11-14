@@ -6,12 +6,16 @@ Order class
 
 from Product import Product
 from OrderLine import OrderLine
-
+from DiscountStrategy import DiscountStrategy, NoDiscount, PercentageDiscount, BulkDiscount
 
 class Order:
-    def __init__(self, order_id: str) -> None:
+    def __init__(self, order_id: str, discount: DiscountStrategy | None = None) -> None:
         self.order_id: str = order_id
         self.order_lines: list[OrderLine] = []
+        if discount == None:
+            self.discount = NoDiscount()
+        else:
+            self.discount = discount
 
     def add_order_line(self, product: Product, quantity: int) -> None:
         order_line: OrderLine = OrderLine(product, quantity)
@@ -24,5 +28,10 @@ class Order:
                 return True
         return False
 
+    def set_discount(self, discount: DiscountStrategy) -> None:
+        self.discount = discount
+
     def calculate_total(self) -> float:
-        return sum(line.calculate_subtotal() for line in self.order_lines)
+        total = sum(line.calculate_subtotal() for line in self.order_lines)
+        return self.discount.apply(total)
+

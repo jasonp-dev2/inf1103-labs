@@ -7,7 +7,6 @@ Product class
 from abc import ABC, abstractmethod
 from Supplier import Supplier
 
-
 class Product(ABC):
     def __init__(
         self,

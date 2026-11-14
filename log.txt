@@ -1,0 +1,218 @@
+commit 4ddaf2975f49e501156dd1ec6118ba4321033228
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sat Nov 14 00:36:17 2026 +0800
+
+    lab8 implementation and cleanup
+
+commit 740b22392ff9ae4b8e5cd1a390e853581c30327a
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Nov 6 10:29:22 2026 +0800
+
+    code cleanup
+
+commit 9146a38b5ef70567f276ae89e4c68f5583739218
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Nov 6 02:34:32 2026 +0800
+
+    Integrated new product classes to work with main
+
+commit d17d5acfcb5db3ef1470bc7a6068bdd196fe7ccc
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Nov 6 00:24:44 2026 +0800
+
+    Updated json saving and loading logic
+    
+    preserved product type and additional attributes with type identifier "physical" or "digital"
+
+commit 0285a96a7cae7ce2482d2edf90b902caf100475e
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Tue Nov 3 22:34:12 2026 +0800
+
+    Added new classes, changed addproduct() function to fit
+    
+    functionality of new classes tested
+    TBD: test function addproduct() in main
+
+commit c36ea861cf0643a36b413c0f573f9254a1240bb9
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sun Nov 1 19:00:50 2026 +0800
+
+    Slight changes and updated dockerfile
+
+commit 7ff876d96e35260d052eed924b336a4f6ce790b7
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sat Oct 31 02:02:53 2026 +0800
+
+    Updated classes to fit SOLID principle
+
+commit 1172bdc4731b94213d165fbe16106b2a49c81fcb
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sat Oct 31 00:29:02 2026 +0800
+
+    Added display_all() method to Inventory class
+
+commit 498d9481e76287c7ddde1b4495273ba234700b87
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 30 23:59:41 2026 +0800
+
+    Added search_product() method to inventory class
+
+commit 6516beaaff76b7bc4d08cbfad3df50237ea73e1e
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 30 19:24:02 2026 +0800
+
+    added Inventory.py
+    
+    add_product() method, edits to product.py
+
+commit 83dc313af9bf4881bcb1c7d633ecdd8af083d105
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 30 17:28:29 2026 +0800
+
+    Create product.py
+    
+    product class for week8 lab
+
+commit 46b13f22c83bd3d23704a9da8d88c423987e8d53
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Wed Oct 7 16:07:33 2026 +0800
+
+    Updated update__product() logic
+
+commit cee5e256567f8aa8cd5c8b33e114670e94f97af4
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Wed Oct 7 15:51:48 2026 +0800
+
+    Updated display_all_products() logic and syntax
+
+commit f9d9f8f15924d34bbe9950eb83d119694dac6ed0
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Wed Oct 7 15:38:49 2026 +0800
+
+    final save_inventory() function verified, fixed search_product() not found logic, finishing touches
+
+commit b51f9ee883188a40b1848cec680f047e5b9f5f68
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Mon Oct 5 22:09:15 2026 +0800
+
+    Added search_product() function, edited save_inventory() function to work for json file
+
+commit 2803903e6cab61032b2e2b1a4162da277734f78f
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Mon Oct 5 21:29:19 2026 +0800
+
+    Added update_stock() function
+
+commit 14d9c27bb5181302ab53a9c5cce2e43005859e5b
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 2 18:38:29 2026 +0800
+
+    Fixed display_all_products() function, among other fixes
+
+commit 4b5618b78a899ce521e39e554fb22bf02776dc3e
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 2 12:01:42 2026 +0800
+
+    Added update_stock() function
+
+commit fc0367955f70ce9443a4a81a7158b9f35a29d0a2
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 2 11:47:05 2026 +0800
+
+    Added add_product() function
+
+commit c7d92b283c0362a3842d2f2746ed07e3e7fc047c
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 2 11:10:48 2026 +0800
+
+    Added display_all_products() function
+
+commit e857d7d5e45dea9941128cc6e761e0be9dcfca45
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 2 11:00:32 2026 +0800
+
+    Updated load_inventory to load json file
+
+commit ff7f25fad94d113d9ff34510257e9e39b028cad7
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Oct 2 10:06:44 2026 +0800
+
+    Init lab5
+
+commit 3314c49758c8e4fc21147a7a3cf1ebe6bdb27069
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Thu Oct 1 22:33:55 2026 +0800
+
+    Bug fix n finishing touches before submission
+
+commit efe5107b8cfe8379e270f0c56ccbca32113da57d
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Thu Oct 1 22:21:12 2026 +0800
+
+    Added visual for current inventory entries in inventory.txt
+
+commit d4e3e4e831ceed4d9e5f6c10e6240ce8d22d7f1d
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Sep 25 11:57:46 2026 +0800
+
+    added save_inventory() and edited load_inventory() to work with list, implemented inventory entry tracking within text file instead of locally
+
+commit c1c87760c213784d83aa38ca20609843d5794681
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Sep 25 10:28:34 2026 +0800
+
+    Added workingload_inventory() function
+
+commit 1e9eaab335f648c1ff3762bded0e16de4c41aeb1
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Fri Sep 25 10:02:50 2026 +0800
+
+    Initial lab4
+
+commit 9f11dd7c79fba673824e40b17056512b3a74c049
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sun Sep 20 20:02:02 2026 +0800
+
+    Fixed incorrect tax implementation, quit = True break
+
+commit 0722b6871b7a3f9620eca03becaadee5d93a1ceb
+Author: jasonp-dev2 <jasonphua2002@gmail.com>
+Date:   Sun Sep 20 19:27:46 2026 +0800
+
+    Lab 3 Modular Design
+
+commit 506cb09bc14416e3e96d8fce8a70383b951429b2
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Thu Sep 17 00:37:20 2026 +0800
+
+    update repo
+
+commit 971eedcb935f97170c6880b7cf1941610cc21a59
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 12:05:38 2026 +0800
+
+    reporting
+
+commit 422163f19a40111ca77ca2a6caae32f192f851ce
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 12:03:08 2026 +0800
+
+    trigger overstock alert
+
+commit 1d91e2ec15a76393ccd2a782a3dc26d77ae4ef99
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 11:55:34 2026 +0800
+
+    enforce business rules
+
+commit a3ec9cf6b691a06c9cb43b1f2e1053c2cb1474b9
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Sun Sep 13 11:53:50 2026 +0800
+
+    Handle invalid input
+
+commit 09e7c5600b35db1b013053cb7a30625e7a230718
+Author: Jason Phua <jasonphua2002@gmail.com>
+Date:   Fri Sep 11 10:12:01 2026 +0800
+
+    Initial commit

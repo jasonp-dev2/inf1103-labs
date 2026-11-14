@@ -33,3 +33,5 @@ class PhysicalProduct(Product, CanBeShipped):
     def calculate_shipping_cost(self) -> float:
         shipping_cost: float = self.__weight * 3.0  # $3 per kg to ship
         return shipping_cost
+
+    

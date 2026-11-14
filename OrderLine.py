@@ -5,7 +5,6 @@ OrderLine class
 
 from Product import Product
 
-
 class OrderLine:
     def __init__(self, product: Product, quantity: int) -> None:
         self.product: Product = product

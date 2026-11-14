@@ -4,7 +4,6 @@ Supplier class
     -Manages its own state
 """
 
-
 class Supplier:
     def __init__(self, supplier_id: str, name: str, contact: str) -> None:
         self.__supplier_id: str = supplier_id
