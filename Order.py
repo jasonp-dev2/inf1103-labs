@@ -6,13 +6,13 @@ Order class
 
 from Product import Product
 from OrderLine import OrderLine
-from DiscountStrategy import DiscountStrategy, NoDiscount, PercentageDiscount, BulkDiscount
+from DiscountStrategy import DiscountStrategy, NoDiscount
 
 class Order:
     def __init__(self, order_id: str, discount: DiscountStrategy | None = None) -> None:
         self.order_id: str = order_id
         self.order_lines: list[OrderLine] = []
-        if discount == None:
+        if discount is None:
             self.discount = NoDiscount()
         else:
             self.discount = discount
